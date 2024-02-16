@@ -2,8 +2,8 @@ service: my-api-service
 
 provider:
   name: aws
-  runtime: nodejs14.x
-  region: us-east-1
+  runtime: nodejs18.x
+  region: ap-southeast-2
 
 functions:
   myLambdaFunction:
