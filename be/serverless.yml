@@ -1,0 +1,70 @@
+service: my-api-service
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+
+functions:
+  myLambdaFunction:
+    handler: src/lambda.handler
+    events:
+      - http:
+          path: myEndpoint
+          method: post
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+
+resources:
+  Resources:
+    myDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: MyTableName
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+
+    ApiGatewayToLambdaPermission:
+      Type: AWS::Lambda::Permission
+      Properties:
+        FunctionName: 
+          Fn::GetAtt:
+            - myLambdaFunction
+            - Arn
+        Action: lambda:InvokeFunction
+        Principal: apigateway.amazonaws.com
+
+    ApiGatewayInvokePolicy:
+      Type: AWS::IAM::Policy
+      Properties:
+        PolicyName: ApiGatewayInvokePolicy
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - lambda:InvokeFunction
+              Resource:
+                - 
+                  Fn::GetAtt:
+                    - myLambdaFunction
+                    - Arn
+        Roles:
+          - 
+            Ref: ApiGatewayToLambdaRole
