@@ -1,0 +1,17 @@
+{
+    "name": "voteyourpick",
+    "version": "1.0.0",
+    "description": "A serverless API service using AWS Lambda and DynamoDB",
+    "main": "src/lambda.js",
+    "scripts": {
+      "start": "node src/lambda.js"
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+      "aws-sdk": "^2.1144.0",
+      "express": "^4.17.2",
+      "serverless-http": "^2.6.1"
+    }
+  }
+  
