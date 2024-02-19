@@ -1,4 +1,4 @@
-service: my-api-service
+service: viteyourpick
 
 provider:
   name: aws

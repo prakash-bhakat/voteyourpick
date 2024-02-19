@@ -1,5 +1,5 @@
 {
-    "name": "my-api-service",
+    "name": "voteyourpick",
     "version": "1.0.0",
     "description": "A serverless API service using AWS Lambda and DynamoDB",
     "main": "src/lambda.js",
