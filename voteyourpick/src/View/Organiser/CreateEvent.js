@@ -3,11 +3,17 @@ import AppBar from '../Component/AppBar'
 import EventDetail from './EventDetail'
 import FoodList from '../Component/FoodList'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom"
+import { Button } from '@material-ui/core';
 
 
 function CreateEvent() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [menuData, setMenuData] = useState([]);
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate('/success');
+  };
   //var menuDataToPass = []
   const handleChildData = (data) => {
     // Handle data received from child component
@@ -16,6 +22,11 @@ function CreateEvent() {
     setMenuData([...menu_data]);
     console.log(menuData)
   };
+  const removeFood = (index) =>{
+    // var menu_data = menuData;
+    // menu_data.splice(index,1);
+    // setMenuData([...menu_data]);
+  }
 
   const [hideDiv, setHideDiv] = useState(false);
 
@@ -84,7 +95,12 @@ function CreateEvent() {
       <div className={hideDiv ? '':'hidden'}>
       <EventDetail onData={handleChildData}/>
       </div>
-      <FoodList foodlist={menuData} /> 
+      {menuData.map((item,index) => (
+        <span >
+          <Button key={index} type="button" onClick={removeFood(index)}>Remove</Button>
+          <FoodList key={index} item={item} /> 
+        </span>
+      ))}
       
       <div className="grid grid-cols-2 gap-4">
             <button
@@ -96,6 +112,7 @@ function CreateEvent() {
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              onClick={handleClick}
             >
               Publish
             </button>

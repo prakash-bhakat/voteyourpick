@@ -3,11 +3,10 @@ import nonveg from "../../Assets/nonveg.svg"
 import veg from "../../Assets/veg.svg"
 import thumbs from "../../Assets/thumbs.svg"
 
-function FoodList({foodlist}) {
+function FoodList({item}) {
   return (
     <div>    
-    {foodlist.map((item,index) => (
-      <div key={index} className="w-full md:w-4/5">
+      <div className="w-full md:w-4/5">
       <div className="p-5 rounded-[10px] justify-start items-start gap-4 inline-flex">
         <img
           className="w-16 h-16 rounded-[5px]"
@@ -35,7 +34,6 @@ function FoodList({foodlist}) {
         </div>
       </div>
       </div>
-    ))}
     </div>
 
   );

@@ -6,6 +6,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate ,Outlet } from 'react-router-dom';
 import EventSuccess from './View/Organiser/EventSuccess';
 import Event from './View/Contributor/Event';
+import EventList from './View/Organiser/EventList';
 import { UserProvider } from './UserContext';
 // import  AuthRoute from './View/Auth/AuthRoute'
 
@@ -24,7 +25,7 @@ function App() {
         <div className='pt-[100px]'></div>
         <Routes>
           <Route exact path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={isAuthenticated ? <Navigate to="/event" /> : <Login />} /> 
+            <Route path="/login" element={isAuthenticated ? <Navigate to="/eventlist" /> : <Login />} /> 
             <Route element={<PrivateRoutes/>}>
               <Route
                 path="/event"
@@ -33,6 +34,10 @@ function App() {
               <Route
                 path="/create"
                 element={<CreateEvent />}     
+              />
+              <Route
+                path="/eventlist"
+                element={<EventList />}     
               />
               <Route
                 path="/success"
