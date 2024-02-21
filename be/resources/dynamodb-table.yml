@@ -1,14 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Resources:
-  MyDynamoDBTable:
+  EventsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: MyTableName
+      TableName: Events
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: eventId
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: eventId
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+      
+  FoodsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Foods
+      AttributeDefinitions:
+        - AttributeName: foodId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: foodId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+    
+  FoodEventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: FoodEvents
+      AttributeDefinitions:
+        - AttributeName: foodEventId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: foodEventId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  EventsTable:
+    Description: "The newly created events table"
+    Value:
+      Ref: EventsTable
+  FoodsTable:
+    Description: "The newly created foods table"
+    Value:
+      Ref: FoodsTable
+  FoodEventsTable:
+    Description: "The newly created food events table"
+    Value:
+      Ref: FoodEventsTable
