@@ -29,15 +29,15 @@ Resources:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
     
-  FoodEventsTable:
+  VotesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: FoodEvents
+      TableName: Votes
       AttributeDefinitions:
-        - AttributeName: foodEventId
+        - AttributeName: voteId
           AttributeType: S
       KeySchema:
-        - AttributeName: foodEventId
+        - AttributeName: voteId
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 5
@@ -52,7 +52,7 @@ Outputs:
     Description: "The newly created foods table"
     Value:
       Ref: FoodsTable
-  FoodEventsTable:
+  VotesTable:
     Description: "The newly created food events table"
     Value:
-      Ref: FoodEventsTable
+      Ref: VotesTable
